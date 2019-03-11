@@ -16,6 +16,7 @@
       <td><%= post.title %></td>
       <td><%= post.content %></td>
       <td>
+      <%# ********* THIS DOES NOT WORK |  Has_many ********* %>
         <%= post.comment.id %>
       </td>
 

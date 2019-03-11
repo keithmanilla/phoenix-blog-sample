@@ -3,7 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Body</th>
+      <th>Comment Items</th>
+
 
       <th></th>
     </tr>
@@ -11,7 +12,10 @@
   <tbody>
 <%= for comment <- @comments do %>
     <tr>
-      <td><%= comment.body %></td>
+      <td>
+      <%# ********* THIS WORKS |  Has_one ********* %>
+      <small>COMMENTED IN: <b><%= comment.post.title %></b></small><br/>
+      <i><%= comment.body %></i></td>
 
       <td>
         <%= link "Show", to: Routes.comment_path(@conn, :show, comment) %>

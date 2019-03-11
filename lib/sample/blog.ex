@@ -114,7 +114,7 @@ defmodule Sample.Blog do
 
   """
   def list_comments do
-    Repo.all(Comment)
+    Repo.all(Comment) |> Repo.preload(:post)
   end
 
   @doc """
