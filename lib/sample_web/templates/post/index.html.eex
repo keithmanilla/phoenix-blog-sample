@@ -3,9 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Comments</th>
+      <th>Posts</th>
 
       <th></th>
     </tr>
@@ -13,12 +11,16 @@
   <tbody>
 <%= for post <- @posts do %>
     <tr>
-      <td><%= post.title %></td>
-      <td><%= post.content %></td>
-      <td>
-      <%# ********* THIS DOES NOT WORK |  Has_many ********* %>
-        <%= post.comment.id %>
-      </td>
+      <td><h3><%= post.title %></h3>
+      <p><%= post.content %></p>
+        <br/>
+        <h4>Comments</h4>
+        <ul>
+        <%= for comment <- post.comments do %>
+          <li><%= comment.body %></li>
+        <% end %>
+        </ul>
+        </td>
 
       <td>
         <%= link "Show", to: Routes.post_path(@conn, :show, post) %>

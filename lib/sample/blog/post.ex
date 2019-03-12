@@ -2,6 +2,9 @@ defmodule Sample.Blog.Post do
   use Ecto.Schema
   import Ecto.Changeset
 
+  import Ecto.Query
+  alias Sample.Blog.Comment
+
 
   schema "posts" do
     field :content, :string

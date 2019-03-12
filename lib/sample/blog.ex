@@ -7,6 +7,7 @@ defmodule Sample.Blog do
   alias Sample.Repo
 
   alias Sample.Blog.Post
+  # alias Sample.Blog.Comment
 
   @doc """
   Returns the list of posts.
@@ -35,7 +36,7 @@ defmodule Sample.Blog do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id) |> Repo.preload(:comments)
+  def get_post!(id), do: Repo.get!(Post, id)
 
   @doc """
   Creates a post.
@@ -104,6 +105,7 @@ defmodule Sample.Blog do
 
   alias Sample.Blog.Comment
 
+
   @doc """
   Returns the list of comments.
 
@@ -114,7 +116,7 @@ defmodule Sample.Blog do
 
   """
   def list_comments do
-    Repo.all(Comment) |> Repo.preload(:post)
+    Repo.all(Comment) |> Repo.preload[:post]
   end
 
   @doc """

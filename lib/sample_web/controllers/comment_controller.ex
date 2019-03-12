@@ -1,17 +1,26 @@
 defmodule SampleWeb.CommentController do
   use SampleWeb, :controller
 
+  import Ecto.Query
+  alias Sample.Repo
+
   alias Sample.Blog
   alias Sample.Blog.Comment
+  alias Sample.Blog.Post
 
   def index(conn, _params) do
-    comments = Blog.list_comments()
+    comments = Repo.all(Comment) |> Repo.preload(:post)
     render(conn, "index.html", comments: comments)
   end
 
   def new(conn, _params) do
     changeset = Blog.change_comment(%Comment{})
-    render(conn, "new.html", changeset: changeset)
+    posts = Repo.all(Post) |> Enum.map(&{&1.title, &1.id})
+    # changeset =
+    #   comment
+    #   |> build_assoc(:post)
+    #   |> Comment.changeset()
+    render(conn, "new.html", changeset: changeset, posts: posts)
   end
 
   def create(conn, %{"comment" => comment_params}) do

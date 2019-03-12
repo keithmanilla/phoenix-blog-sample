@@ -1,13 +1,19 @@
 defmodule SampleWeb.PostController do
   use SampleWeb, :controller
 
+  import Ecto.Query
+  alias Sample.Repo
   alias Sample.Blog
   alias Sample.Blog.Post
+  alias Sample.Blog.Comment
 
   def index(conn, _params) do
-    posts = Blog.list_posts()
+    posts = Blog.list_posts()# |> Repo.preload[:comments]
+    # posts = Repo.all Ecto.assoc(posts, :comments)
+    # posts = from(p in Blog, preload: [:comments]) |> Repo.all(Post)
     render(conn, "index.html", posts: posts)
   end
+
 
   def new(conn, _params) do
     changeset = Blog.change_post(%Post{})

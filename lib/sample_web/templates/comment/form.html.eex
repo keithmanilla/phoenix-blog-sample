@@ -5,13 +5,28 @@
     </div>
   <% end %>
 
-  <%= label f, :post_id %>
-  <%= number_input f, :post_id %>
-  <%= error_tag f, :post_id %>
+  
+
+  <%= label f, :post_title %>
+  <%= select f, :post_id, @posts, class: "form-control" %>
 
   <%= label f, :body %>
   <%= textarea f, :body %>
   <%= error_tag f, :body %>
+
+  <div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <a href="#about">About</a>
+    <a href="#base">Base</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+    <a href="#custom">Custom</a>
+    <a href="#support">Support</a>
+    <a href="#tools">Tools</a>
+  </div>
+</div>
 
   <div>
     <%= submit "Save" %>

@@ -1,9 +1,9 @@
-<h1>Listing Comments</h1>
+<h1>Comments</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Comment Items</th>
+      <th>Recent Comments:</th>
 
 
       <th></th>
