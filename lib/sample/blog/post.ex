@@ -4,6 +4,7 @@ defmodule Sample.Blog.Post do
 
   import Ecto.Query
   alias Sample.Blog.Comment
+  alias Sample.Blog.Category
 
 
   schema "posts" do
@@ -14,7 +15,7 @@ defmodule Sample.Blog.Post do
 
     has_many :postcategories, Sample.Blog.Postcategory, on_delete: :delete_all
 
-    has_many :categories, through: [:postcategories, :categories]
+    has_many :categories, through: [:postcategories, :category]
 
     timestamps()
   end

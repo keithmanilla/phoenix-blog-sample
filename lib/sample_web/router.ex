@@ -19,6 +19,8 @@ defmodule SampleWeb.Router do
     get "/", PageController, :index
     resources "/posts", PostController do
       resources "/comments", CommentController
+      resources "/postcategories", PostcategoryController
+      resources "/categories", CategoryController
     end
     resources "/comments", CommentController
     resources "/categories", CategoryController

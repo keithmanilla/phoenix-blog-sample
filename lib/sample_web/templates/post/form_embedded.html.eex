@@ -18,7 +18,7 @@
   <%= inputs_for f, :postcategories, fn fc -> %>
     <%= label fc, :category_id, "Category", class: "control-label" %>
     <%= select fc, :category_id, @categories, class: "form-control" %>
-    <%= error_tag fc, :body %>
+    <%= error_tag fc, :category_id %>
   <% end %>
 
   <%= inputs_for f, :comments, fn af -> %>

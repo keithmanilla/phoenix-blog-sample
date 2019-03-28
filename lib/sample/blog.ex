@@ -19,7 +19,7 @@ defmodule Sample.Blog do
 
   """
   def list_posts do
-    Repo.all(Post) |> Repo.preload(:comments) |> Repo.preload(postcategories: :category) |> Repo.preload(postcategories: :post)
+    Repo.all(Post) |> Repo.preload(:comments) |> Repo.preload(postcategories: :category)
   end
 
   @doc """

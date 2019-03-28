@@ -25,7 +25,6 @@
                         'Elixir.SampleWeb.PageView',
                         'Elixir.SampleWeb.PostController',
                         'Elixir.SampleWeb.PostView',
-                        'Elixir.SampleWeb.PostcategoryController',
                         'Elixir.SampleWeb.PostcategoryView',
                         'Elixir.SampleWeb.Router',
                         'Elixir.SampleWeb.Router.Helpers',

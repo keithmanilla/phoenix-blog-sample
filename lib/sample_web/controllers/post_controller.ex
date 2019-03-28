@@ -24,11 +24,10 @@ defmodule SampleWeb.PostController do
     # changeset = Blog.change_post(%Post{})
     categories = Repo.all(Category) |> Enum.map(&{&1.name, &1.id})
     changeset = Blog.change_post(%Post{
+                                      postcategories:
+                                      [%Sample.Blog.Postcategory{category_id: "%Category{}"}],
                                       comments:
                                       [%Sample.Blog.Comment{body: ""}],
-                                      postcategories:
-                                      [%Sample.Blog.Postcategory{category_id: "%Category{}"}
-                                      ]
                                       })
     render(conn, "new.html", categories: categories, changeset: changeset)
   end
@@ -54,22 +53,21 @@ defmodule SampleWeb.PostController do
   end
 
   def edit(conn, %{"id" => id}) do
-    post = Blog.get_post!(id) |> Repo.preload(:comments)
+    post = Blog.get_post!(id) |> Repo.preload(:comments) |> Repo.preload(postcategories: :category)
     categories = Repo.all(Category) |> Enum.map(&{&1.name, &1.id})
     # changeset= Blog.change_post(post)
     changeset = Blog.change_post(%Post{
-                                  comments:
-                                  [%Sample.Blog.Comment{body: ""}],
+                                  # comments:
+                                  # [%Sample.Blog.Comment{body: ""}]
                                   postcategories:
-                                  [%Sample.Blog.Postcategory{category_id: "%Category{}"}
-                                  ]
+                                  [%Sample.Blog.Postcategory{category_id: "%Category{}"}]
                                   })
     # changeset = Blog.change_post(%Post{comments: [%Sample.Blog.Comment{body: "Hello World comment!", post_id: "#{post.id}"}]})
     render(conn, "edit.html", post: post, categories: categories, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do
-    post = Blog.get_post!(id)
+    post = Blog.get_post!(id) |> Repo.preload(:comments) |> Repo.preload(postcategories: :category)
 
     case Blog.update_post(post, post_params) do
       {:ok, post} ->
