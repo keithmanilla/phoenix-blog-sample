@@ -1,0 +1,28 @@
+<h1>Listing Postcategories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th>Category</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for postcategory <- @postcategories do %>
+    <tr>
+
+      <td><%= postcategory.post.title %></td>
+      <td><%= postcategory.category.name %>
+      <td>
+        <%= link "Show", to: Routes.postcategory_path(@conn, :show, postcategory) %>
+        <%= link "Edit", to: Routes.postcategory_path(@conn, :edit, postcategory) %>
+        <%= link "Delete", to: Routes.postcategory_path(@conn, :delete, postcategory), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Postcategory", to: Routes.postcategory_path(@conn, :new) %></span>

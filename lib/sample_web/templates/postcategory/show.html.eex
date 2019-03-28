@@ -1,0 +1,8 @@
+<h1>Show Postcategory</h1>
+
+<ul>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.postcategory_path(@conn, :edit, @postcategory) %></span>
+<span><%= link "Back", to: Routes.postcategory_path(@conn, :index) %></span>

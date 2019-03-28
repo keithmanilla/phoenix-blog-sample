@@ -1,0 +1,5 @@
+<h1>Edit Postcategory</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.postcategory_path(@conn, :update, @postcategory)) %>
+
+<span><%= link "Back", to: Routes.postcategory_path(@conn, :index) %></span>

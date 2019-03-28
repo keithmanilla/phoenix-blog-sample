@@ -13,6 +13,19 @@
   <%= textarea f, :content %>
   <%= error_tag f, :content %>
 
+  <%= inputs_for f, :postcategories, fn fc -> %>
+    <%= label fc, :category_id, "Category Selection", class: "control-label" %>
+    <%= select fc, :category_id, @categories, class: "form-control" %>
+  <% end %>
+
+  <%= inputs_for f, :comments, fn af -> %>
+    <div class="form-group">
+      <%= label af, :body, "Comment Body", class: "control-label" %>
+      <%= textarea af, :body, class: "form-control" %>
+      <%= error_tag af, :body %>
+    </div>
+  <% end %>
+
   <div>
     <%= submit "Save" %>
   </div>

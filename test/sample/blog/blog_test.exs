@@ -122,4 +122,120 @@ defmodule Sample.BlogTest do
       assert %Ecto.Changeset{} = Blog.change_comment(comment)
     end
   end
+
+  describe "categories" do
+    alias Sample.Blog.Category
+
+    @valid_attrs %{name: "some name"}
+    @update_attrs %{name: "some updated name"}
+    @invalid_attrs %{name: nil}
+
+    def category_fixture(attrs \\ %{}) do
+      {:ok, category} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Blog.create_category()
+
+      category
+    end
+
+    test "list_categories/0 returns all categories" do
+      category = category_fixture()
+      assert Blog.list_categories() == [category]
+    end
+
+    test "get_category!/1 returns the category with given id" do
+      category = category_fixture()
+      assert Blog.get_category!(category.id) == category
+    end
+
+    test "create_category/1 with valid data creates a category" do
+      assert {:ok, %Category{} = category} = Blog.create_category(@valid_attrs)
+      assert category.name == "some name"
+    end
+
+    test "create_category/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Blog.create_category(@invalid_attrs)
+    end
+
+    test "update_category/2 with valid data updates the category" do
+      category = category_fixture()
+      assert {:ok, %Category{} = category} = Blog.update_category(category, @update_attrs)
+      assert category.name == "some updated name"
+    end
+
+    test "update_category/2 with invalid data returns error changeset" do
+      category = category_fixture()
+      assert {:error, %Ecto.Changeset{}} = Blog.update_category(category, @invalid_attrs)
+      assert category == Blog.get_category!(category.id)
+    end
+
+    test "delete_category/1 deletes the category" do
+      category = category_fixture()
+      assert {:ok, %Category{}} = Blog.delete_category(category)
+      assert_raise Ecto.NoResultsError, fn -> Blog.get_category!(category.id) end
+    end
+
+    test "change_category/1 returns a category changeset" do
+      category = category_fixture()
+      assert %Ecto.Changeset{} = Blog.change_category(category)
+    end
+  end
+
+  describe "postcategories" do
+    alias Sample.Blog.Postcategory
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def postcategory_fixture(attrs \\ %{}) do
+      {:ok, postcategory} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Blog.create_postcategory()
+
+      postcategory
+    end
+
+    test "list_postcategories/0 returns all postcategories" do
+      postcategory = postcategory_fixture()
+      assert Blog.list_postcategories() == [postcategory]
+    end
+
+    test "get_postcategory!/1 returns the postcategory with given id" do
+      postcategory = postcategory_fixture()
+      assert Blog.get_postcategory!(postcategory.id) == postcategory
+    end
+
+    test "create_postcategory/1 with valid data creates a postcategory" do
+      assert {:ok, %Postcategory{} = postcategory} = Blog.create_postcategory(@valid_attrs)
+    end
+
+    test "create_postcategory/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Blog.create_postcategory(@invalid_attrs)
+    end
+
+    test "update_postcategory/2 with valid data updates the postcategory" do
+      postcategory = postcategory_fixture()
+      assert {:ok, %Postcategory{} = postcategory} = Blog.update_postcategory(postcategory, @update_attrs)
+    end
+
+    test "update_postcategory/2 with invalid data returns error changeset" do
+      postcategory = postcategory_fixture()
+      assert {:error, %Ecto.Changeset{}} = Blog.update_postcategory(postcategory, @invalid_attrs)
+      assert postcategory == Blog.get_postcategory!(postcategory.id)
+    end
+
+    test "delete_postcategory/1 deletes the postcategory" do
+      postcategory = postcategory_fixture()
+      assert {:ok, %Postcategory{}} = Blog.delete_postcategory(postcategory)
+      assert_raise Ecto.NoResultsError, fn -> Blog.get_postcategory!(postcategory.id) end
+    end
+
+    test "change_postcategory/1 returns a postcategory changeset" do
+      postcategory = postcategory_fixture()
+      assert %Ecto.Changeset{} = Blog.change_postcategory(postcategory)
+    end
+  end
 end

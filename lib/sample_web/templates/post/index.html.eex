@@ -13,6 +13,11 @@
     <tr>
       <td><h3><%= post.title %></h3>
       <p><%= post.content %></p>
+      <p><strong>Category: </strong>
+        <%= for postcategory <- post.postcategories do %>
+          <%= postcategory.category.name %>
+        <% end %>
+      </p>
         <br/>
         <h4>Comments</h4>
         <ul>

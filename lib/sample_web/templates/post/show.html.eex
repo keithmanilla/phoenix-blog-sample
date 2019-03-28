@@ -12,6 +12,17 @@
     <%= @post.content %>
   </li>
 
+  <p><strong>Category: </strong>
+    <%= for postcategory <- @post.postcategories do %>
+      <%= postcategory.category.name %>
+    <% end %>
+  </p>
+
+  <h6>Comments:</h6>
+  <%= for comment <- @post.comments do %>
+    <li><%= comment.body %></li>
+  <% end %>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>

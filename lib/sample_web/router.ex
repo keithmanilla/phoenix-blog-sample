@@ -17,8 +17,12 @@ defmodule SampleWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/posts", PostController
+    resources "/posts", PostController do
+      resources "/comments", CommentController
+    end
     resources "/comments", CommentController
+    resources "/categories", CategoryController
+    resources "/postcategories", PostcategoryController
   end
 
   # Other scopes may use custom stacks.

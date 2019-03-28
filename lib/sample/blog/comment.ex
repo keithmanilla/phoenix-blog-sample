@@ -11,7 +11,7 @@ defmodule Sample.Blog.Comment do
     field :body, :string
     # field :post_id, :id
 
-    belongs_to :post, Sample.Blog.Post, on_replace: :update
+    belongs_to :post, Sample.Blog.Post # , on_replace: :update
 
     timestamps()
   end
@@ -21,6 +21,6 @@ defmodule Sample.Blog.Comment do
     comment
     |> cast(attrs, [:body, :post_id])
     |> validate_required([:body, :post_id])
-    # |> foreign_key_constraint(:post_id)
+    |> foreign_key_constraint(:post_id)
   end
 end

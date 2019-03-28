@@ -12,6 +12,10 @@ defmodule Sample.Blog.Post do
 
     has_many :comments, Sample.Blog.Comment, on_delete: :delete_all
 
+    has_many :postcategories, Sample.Blog.Postcategory, on_delete: :delete_all
+
+    has_many :categories, through: [:postcategories, :categories]
+
     timestamps()
   end
 
@@ -19,6 +23,9 @@ defmodule Sample.Blog.Post do
   def changeset(post, attrs) do
     post
     |> cast(attrs, [:title, :content])
-    |> validate_required([:title, :content])
+    |> cast_assoc(:comments)
+    |> cast_assoc(:postcategories)
+    # |> cast_assoc(:categories)
+    |> validate_required([:title])
   end
 end

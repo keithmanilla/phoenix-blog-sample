@@ -3,21 +3,34 @@ defmodule SampleWeb.PostController do
 
   import Ecto.Query
   alias Sample.Repo
+
   alias Sample.Blog
   alias Sample.Blog.Post
   alias Sample.Blog.Comment
+  alias Sample.Blog.Postcategory
+  alias Sample.Blog.Category
 
   def index(conn, _params) do
     posts = Blog.list_posts()# |> Repo.preload[:comments]
+    # changeset = Blog.change_comment(%Comment{})
     # posts = Repo.all Ecto.assoc(posts, :comments)
     # posts = from(p in Blog, preload: [:comments]) |> Repo.all(Post)
+
     render(conn, "index.html", posts: posts)
   end
 
 
   def new(conn, _params) do
-    changeset = Blog.change_post(%Post{})
-    render(conn, "new.html", changeset: changeset)
+    # changeset = Blog.change_post(%Post{})
+    categories = Repo.all(Category) |> Enum.map(&{&1.name, &1.id})
+    changeset = Blog.change_post(%Post{
+                                      comments:
+                                      [%Sample.Blog.Comment{body: ""}],
+                                      postcategories:
+                                      [%Sample.Blog.Postcategory{category_id: "%Category{}"}
+                                      ]
+                                      })
+    render(conn, "new.html", categories: categories, changeset: changeset)
   end
 
   def create(conn, %{"post" => post_params}) do
@@ -26,6 +39,8 @@ defmodule SampleWeb.PostController do
         conn
         |> put_flash(:info, "Post created successfully.")
         |> redirect(to: Routes.post_path(conn, :show, post))
+        # |> assign(:post_id, "#{post.id}")
+        # |> assign(:body, "hellow assigned text")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -33,14 +48,24 @@ defmodule SampleWeb.PostController do
   end
 
   def show(conn, %{"id" => id}) do
-    post = Blog.get_post!(id)
-    render(conn, "show.html", post: post)
+    post = Blog.get_post!(id) |> Repo.preload(:comments) |> Repo.preload(postcategories: :category)
+    comments = Repo.all(Comment)
+    render(conn, "show.html", post: post, comments: comments)
   end
 
   def edit(conn, %{"id" => id}) do
-    post = Blog.get_post!(id)
-    changeset = Blog.change_post(post)
-    render(conn, "edit.html", post: post, changeset: changeset)
+    post = Blog.get_post!(id) |> Repo.preload(:comments)
+    categories = Repo.all(Category) |> Enum.map(&{&1.name, &1.id})
+    # changeset= Blog.change_post(post)
+    changeset = Blog.change_post(%Post{
+                                  comments:
+                                  [%Sample.Blog.Comment{body: ""}],
+                                  postcategories:
+                                  [%Sample.Blog.Postcategory{category_id: "%Category{}"}
+                                  ]
+                                  })
+    # changeset = Blog.change_post(%Post{comments: [%Sample.Blog.Comment{body: "Hello World comment!", post_id: "#{post.id}"}]})
+    render(conn, "edit.html", post: post, categories: categories, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do

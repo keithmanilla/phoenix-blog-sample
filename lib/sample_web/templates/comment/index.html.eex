@@ -16,7 +16,7 @@
       <%# ********* THIS WORKS |  Has_one ********* %>
       <small>COMMENTED IN: <b><%= comment.post.title %></b></small><br/>
       <i><%= comment.body %></i></td>
-
+      
       <td>
         <%= link "Show", to: Routes.comment_path(@conn, :show, comment) %>
         <%= link "Edit", to: Routes.comment_path(@conn, :edit, comment) %>
