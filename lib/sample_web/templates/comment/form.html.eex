@@ -14,7 +14,7 @@
   <%= textarea f, :body %>
   <%= error_tag f, :body %>
 
-  <div class="dropdown">
+  <%# <div class="dropdown">
   <button onclick="myFunction()" class="dropbtn">Dropdown</button>
   <div id="myDropdown" class="dropdown-content">
     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
@@ -26,7 +26,7 @@
     <a href="#support">Support</a>
     <a href="#tools">Tools</a>
   </div>
-</div>
+</div> %>
 
   <div>
     <%= submit "Save" %>

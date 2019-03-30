@@ -21,14 +21,14 @@ defmodule SampleWeb.PostController do
 
 
   def new(conn, _params) do
-    # changeset = Blog.change_post(%Post{})
+    changeset = Blog.change_post(%Post{})
     categories = Repo.all(Category) |> Enum.map(&{&1.name, &1.id})
-    changeset = Blog.change_post(%Post{
-                                      postcategories:
-                                      [%Sample.Blog.Postcategory{category_id: "%Category{}"}],
-                                      comments:
-                                      [%Sample.Blog.Comment{body: ""}],
-                                      })
+    # changeset = Blog.change_post(%Post{
+                                      # postcategories:
+                                      # [%Sample.Blog.Postcategory{category_id: "%Category{}"}],
+                                      # comments:
+                                      # [%Sample.Blog.Comment{body: ""}],
+                                      # })
     render(conn, "new.html", categories: categories, changeset: changeset)
   end
 
