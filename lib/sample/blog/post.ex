@@ -26,7 +26,6 @@ defmodule Sample.Blog.Post do
     |> cast(attrs, [:title, :content])
     |> cast_assoc(:comments)
     |> cast_assoc(:postcategories)
-    # |> cast_assoc(:categories)
     |> validate_required([:title])
   end
 end
